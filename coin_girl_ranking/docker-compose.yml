@@ -4,6 +4,8 @@ services:
       build:
         context: .
         dockerfile: ./app/Dockerfile
+        volumes:
+          - "./code:/code"
       
   db:
       image: mysql:5.6
