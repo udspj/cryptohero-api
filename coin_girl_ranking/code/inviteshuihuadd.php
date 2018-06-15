@@ -10,6 +10,9 @@ $addr = $_POST['address'];// 被邀请人（即打开链接的用户自己）
 $ivaddr = $_POST['inviteaddress'];// 邀请人
 $cardnum = intval($_POST['cardnum']);
 $price = floatval($_POST['price']);
+$net = $_POST['witchnet'];// test 测试网络，main 主网络
+$snnum = $_POST['sn'];
+//交易状态: 0 已提交待审核，1 已成功，2 失败
 
 try {
 
@@ -21,12 +24,14 @@ try {
     $allprice = $price*$cardnum;
     $allr = $price*$cardnum*0.03;
 
-    $stmt = $conn->prepare("insert ignore into shuihuinvite (address, inviteaddress, paid, cardcount, rebate, time) VALUES (:addr, :ivaddr, :price, :cardnum, :r, '$datetime')");
+    $stmt = $conn->prepare("insert ignore into shuihuinvite (address, inviteaddress, paid, cardcount, rebate, time, serialnum, nettype, txstatus) VALUES (:addr, :ivaddr, :price, :cardnum, :r, '$datetime', :sn, :net, 0)");
     $stmt->bindParam(':addr', $_POST['address'], PDO::PARAM_STR);
     $stmt->bindParam(':ivaddr', $_POST['inviteaddress'], PDO::PARAM_STR);
     $stmt->bindParam(':price', $allprice, PDO::PARAM_STR);
     $stmt->bindParam(':cardnum', $_POST['cardnum'], PDO::PARAM_STR);
     $stmt->bindParam(':r', $allr, PDO::PARAM_STR);
+    $stmt->bindParam(':sn', $_POST['sn'], PDO::PARAM_STR);
+    $stmt->bindParam(':net', $_POST['witchnet'], PDO::PARAM_STR);
     $stmt->execute();
   }
 
