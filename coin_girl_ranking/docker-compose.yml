@@ -24,11 +24,11 @@ services:
         - "app"
       ports:
           - "8888:80"
+          - "443:443"
       volumes:
           - ./code:/code
           - ./site.conf:/etc/nginx/conf.d/000_site.conf
+          - /etc/letsencrypt:/etc/letsencrypt
       links:
         - "db"
         - "app"
-      
-
