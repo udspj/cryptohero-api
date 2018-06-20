@@ -22,7 +22,7 @@ try {
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     $allprice = $price*$cardnum;
-    $allr = $price*$cardnum*0.03;
+    $allr = $price*$cardnum*0.05;
 
     $stmt = $conn->prepare("insert ignore into shuihuinvite (address, inviteaddress, paid, cardcount, rebate, time, serialnum, nettype, txstatus) VALUES (:addr, :ivaddr, :price, :cardnum, :r, '$datetime', :sn, :net, 0)");
     $stmt->bindParam(':addr', $_POST['address'], PDO::PARAM_STR);
