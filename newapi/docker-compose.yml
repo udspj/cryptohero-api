@@ -1,0 +1,20 @@
+version: "3"
+services:
+  app:
+      build:
+        context: .
+        dockerfile: ./app/Dockerfile
+      volumes:
+          - ./code:/code
+      
+  web:
+      image: nginx:latest
+      depends_on:
+        - "app"
+      ports:
+          - "8888:80"
+      volumes:
+          - ./code:/code
+          - ./nginx/site.conf:/etc/nginx/conf.d/000_site.conf
+      links:
+        - "app"
